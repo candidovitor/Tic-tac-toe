@@ -3,12 +3,14 @@ board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
 def menu():
     continuar = 1
     while continuar:
-        continuar = int(input('0 - Sair / 1 - Continuar'))
+        continuar = int(input('0 - Sair / 1 - Continuar: '))
         if continuar == 0:
             print('')
             print('Até outra hora')
         elif continuar == 1:
             game()
+            
+        
 
 def exibe():
     print('')
@@ -23,13 +25,13 @@ def exibe():
         print()
     print('')
         
-def game():
-    jogada = 0 
-    while True:
+def game(): 
+    jogada = 0
+    while ganhou() == 0:
         print('\nJogador', (jogada + 1) % 2)
 
         exibe()
-        linha = int(input('\nLinha: '))
+        linha = int(input('Linha: '))
         coluna = int(input('Coluna: '))
 
         if board[linha-1][coluna-1] == 0:
@@ -41,7 +43,15 @@ def game():
             print("Nao esta vazio")
             jogada -=1
     
+        if ganhou():
+            print("Jogador ",jogada%2 + 1," ganhou apos ", jogada+1," rodadas")
         jogada += 1
+
+        if jogada == 9 and not ganhou():
+            print('foi empate!')
+            break
+            
+
 
 def ganhou():
     for i in range(3):
@@ -59,12 +69,12 @@ def ganhou():
 
     if diagonal1 == 3 or diagonal1 == -3 or diagonal2 == 3 or diagonal2 == -3:
         return 1
-    
+
     return 0
 
 menu()        
         
-           
+       
 
 
 
